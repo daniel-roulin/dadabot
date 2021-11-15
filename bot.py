@@ -18,7 +18,7 @@ async def on_command_error(ctx, error):
         await ctx.send('Error: {}'.format(str(error)))
         await ctx.send("To get a list of avaible commands, type `dada help`")
 
+with open("token.txt") as f:
+    token = f.read()
 
-
-token = 'NzY0OTU1ODk5MzQ4Mzg1ODE1.X4Nysg.On025R8mZmcvvl23rtbzYjfziGQ'
 bot.run(token)
