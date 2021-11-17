@@ -20,20 +20,21 @@ class PhysicAnswers(commands.Cog):
 
         Exemple:
         dada answer 11 68
-        This command will send the answer of exercise 68 in chapter 11 (Rotation)
+        This command will send the answer of exercise 62 in chapter 11 (Rotation)
         """
-        try:
-            with BytesIO() as image_binary:
-                image = generator.create_image(chapter, exercise)
-                image.save(image_binary, 'PNG')
-                image_binary.seek(0)
-                await ctx.send(
-                    f"Answers for exercise {exercise} chapter {chapter}",
-                    file=discord.File(fp=image_binary, filename=f"Exercise {exercise} Chapter {chapter}.png"))
-        except generator.InvalidChapter:
-            await ctx.send(f'Error: Chapter {chapter} does not exist')
-        except generator.InvalidExercise:
-            await ctx.send(f'Error: Exercise {exercise} does not exist')
-        except Exception as e:
-            print(e)
-            await ctx.send(f'Internal Error: Contact Dada_Roulin#5870 for help')
+        async with ctx.typing():
+            try:
+                with BytesIO() as image_binary:
+                    image = generator.create_image(chapter, exercise)
+                    image.save(image_binary, 'PNG')
+                    image_binary.seek(0)
+                    await ctx.send(
+                        f"Answers for exercise {exercise} chapter {chapter}",
+                        file = discord.File(fp = image_binary, filename = f"Exercise {exercise} Chapter {chapter}.png"))
+            except generator.InvalidChapter:
+                await ctx.send(f'Error: Chapter {chapter} does not exist')
+            except generator.InvalidExercise:
+                await ctx.send(f'Error: Exercise {exercise} does not exist')
+            except Exception as e:
+                print(e)
+                await ctx.send(f'Internal Error: Contact Dada_Roulin#5870 for help')
