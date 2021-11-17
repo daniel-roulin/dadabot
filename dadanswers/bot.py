@@ -20,7 +20,7 @@ class PhysicAnswers(commands.Cog):
 
         Exemple:
         dada answer 11 68
-        This command will send the answer of exercise 62 in chapter 11 (Rotation)
+        This command will send the answer of exercise 68 in chapter 11 (Rotation)
         """
         try:
             with BytesIO() as image_binary:
