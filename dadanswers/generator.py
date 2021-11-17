@@ -6,7 +6,7 @@ import pdf2image
 
 class InvalidChapter(Exception):
     pass
-class Invalidexercise(Exception):
+class InvalidExercise(Exception):
     pass
 class InternalError(Exception):
     pass
@@ -15,12 +15,12 @@ class InternalError(Exception):
 def create_image(chapter_int, exercise_int):
     """Takes a chapter and exercise number and return a PIL image of the exercise"""
 
-    def find_ex_rect(exercise):
+    def find_ex_rect(page, exercise):
         """Returns the rectangle around a given exercise"""
         matches = page.search_for(f"{exercise}. ")
         rects = []
         for n in range(len(matches)):
-            if matches[n].x0 < 100:
+            if matches[n].x0 < 110:
                 rects.append(matches[n])
         if len(rects) > 1:
             print(f"Error: Too many matchs for exercise {exercise} on page {exercise_page_num} in chap {chapter}")
@@ -43,8 +43,14 @@ def create_image(chapter_int, exercise_int):
         raise InvalidChapter
     elif not exercise in index[chapter]:
         print(f"exercises {exercise} doesn't exist in chapter {chapter}")
-        raise Invalidexercise
+        raise InvalidExercise
     exercise_page_num = index[chapter][exercise]
+
+    if next_exercise in index[chapter]:
+        next_exercise_page_num = index[chapter][next_exercise]
+        page_range = 1 + (next_exercise_page_num - exercise_page_num)
+    else:
+        page_range = 1
 
     pdf = fitz.open(f"dadanswers/chapters/chap{chapter}.pdf")
     output = fitz.open()
@@ -52,17 +58,17 @@ def create_image(chapter_int, exercise_int):
     x, y, width, height = pdf.load_page(exercise_page_num).rect
 
     crop = fitz.Rect(0, 35, width, height - 115)
-    page = output.new_page(-1, crop.width, crop.height*3)
-    for i in range(min(3, pdf.page_count - exercise_page_num)):
+    page = output.new_page(-1, crop.width, crop.height * page_range)
+    for i in range(page_range):
         page.show_pdf_page(crop + (0, crop.height * i, 0, crop.height * i), pdf, exercise_page_num + i, clip = crop)
     pdf.close()
 
     page = output.load_page(0)
 
     try:
-        ex_rect = find_ex_rect(exercise)
+        ex_rect = find_ex_rect(page, exercise)
         if next_exercise in index[chapter]:
-            next_ex_rect = find_ex_rect(next_exercise)
+            next_ex_rect = find_ex_rect(page, next_exercise)
             bottom = next_ex_rect.y0 - 8
         else:
             bottom = height
@@ -81,6 +87,8 @@ def create_image(chapter_int, exercise_int):
     output.save("dadanswers/temp/temp.pdf", deflate=True, garbage=3)
 
     pdfCropMargins.crop(["dadanswers/temp/temp.pdf", "-o", "dadanswers/temp/cropped.pdf"])
+
+    print(f"Generated image for exercise {exercise} in chapter {chapter}")
 
     image = pdf2image.convert_from_path("dadanswers/temp/cropped.pdf")[0]
     return image
