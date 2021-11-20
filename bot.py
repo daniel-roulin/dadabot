@@ -1,8 +1,8 @@
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
 
-from dadadance.bot import Music
-from dadanswers.bot import PhysicAnswers
+from dadadance.dance import Music
+from dadanswers.answer import PhysicAnswers
 
 bot = commands.Bot('dada ', description='The one and only dadabot')
 bot.add_cog(Music(bot))
