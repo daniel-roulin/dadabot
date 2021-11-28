@@ -8,6 +8,11 @@ bot = commands.Bot('dada ', description='The one and only dadabot')
 bot.add_cog(Music(bot))
 bot.add_cog(PhysicAnswers(bot))
 
+@bot.command()
+async def echo(ctx, *, arg):
+    """Repeats your message"""
+    await ctx.send(arg)
+
 @bot.event
 async def on_ready():
     print('Logged in as:\n{0.user.name}'.format(bot))
