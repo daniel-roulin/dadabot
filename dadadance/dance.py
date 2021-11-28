@@ -508,20 +508,3 @@ class Music(commands.Cog):
         if ctx.voice_client:
             if ctx.voice_client.channel != ctx.author.voice.channel:
                 raise commands.CommandError('Bot is already in a voice channel.')
-
-"""
-join
-summon
-leave
-volume
-now
-pause
-resume
-stop
-skip
-queue
-shuffle
-remove
-loop 
-play
-"""
