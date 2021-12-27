@@ -1,0 +1,6 @@
+discord
+youtube_dl
+pymupdf
+pdfCropMargins
+pdf2image
+pynacl
