@@ -7,3 +7,5 @@ dadanswers/temp/temp.pdf
 .gitignore
 INVITEURL
 README.md
+.dockerignore
+Dockerfile
