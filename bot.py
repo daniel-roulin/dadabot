@@ -3,10 +3,12 @@ from discord.ext.commands import CommandNotFound
 
 from dadadance.dance import Music
 from dadanswers.answer import PhysicAnswers
+from dadatext.text import CoolText
 
 bot = commands.Bot('dada ', description='The one and only dadabot')
 bot.add_cog(Music(bot))
 bot.add_cog(PhysicAnswers(bot))
+bot.add_cog(CoolText(bot))
 
 @bot.command()
 async def echo(ctx, *, arg):
@@ -23,7 +25,7 @@ async def on_command_error(ctx, error):
         await ctx.send('Error: {}'.format(str(error)))
         await ctx.send("To get a list of avaible commands, type `dada help`")
 
-with open("token.txt") as f:
+with open("dev-token.txt") as f:
     token = f.read()
 
 bot.run(token)
