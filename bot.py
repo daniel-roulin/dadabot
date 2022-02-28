@@ -12,7 +12,7 @@ bot.add_cog(PhysicAnswers(bot))
 async def echo(ctx, *, arg):
     """Repeats your message"""
     await ctx.send(arg)
-    
+
 @bot.event
 async def on_ready():
     print('Logged in as:\n{0.user.name}'.format(bot))
