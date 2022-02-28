@@ -8,4 +8,4 @@ def get_skin_url(uuid):
     skin_url = "https://crafatar.com/renders/body/{}?overlay"
     return skin_url.format(uuid)
 
-print(get_skin_url("Superbloc100"))
+print(get_skin_url(get_uuid("Superbloc100")))

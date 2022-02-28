@@ -8,10 +8,10 @@ from mcstatus import MinecraftServer
 import requests
 import random
 
-server_url = "dadarou.tk"
+server_url = "dadarou.internet-box.ch"
 
 client = discord.Client()
-token = 'NzY0OTU1ODk5MzQ4Mzg1ODE1.X4Nysg.On025R8mZmcvvl23rtbzYjfziGQ'
+# token = ''
 bot_channels = []
 
 json_ids = open('ids.json')
