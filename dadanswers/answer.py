@@ -10,7 +10,7 @@ class PhysicAnswers(commands.Cog):
     async def cog_command_error(self, ctx, error):
         await ctx.send('Error: {}'.format(str(error)))
 
-    @commands.command(name='answer', aliases=['answers', 'physic', "physicanswers"])
+    @commands.command(name='answer', aliases=["a"])
     async def answer(self, ctx, chapter:int, exercise:int):
         """
         Get physics answers.
@@ -18,7 +18,7 @@ class PhysicAnswers(commands.Cog):
         <chapter>   must be the number of the chapter you want.
         <exercise>  must be the number of the chapter you want.
 
-        Exemple:
+        Example:
         dada answer 11 68
         This command will send the answer of exercise 62 in chapter 11 (Rotation)
         """
