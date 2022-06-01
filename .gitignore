@@ -6,3 +6,4 @@ dadanswers/__pycache__/
 dadanswers/temp/cropped.pdf
 dadanswers/temp/temp.pdf
 dev-token.txt
+logs.log

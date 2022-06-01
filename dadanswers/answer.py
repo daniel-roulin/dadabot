@@ -1,3 +1,4 @@
+import logging
 from discord.ext import commands
 import discord
 from dadanswers import generator
@@ -31,10 +32,12 @@ class PhysicAnswers(commands.Cog):
                     await ctx.send(
                         f"Answers for exercise {exercise} chapter {chapter}",
                         file = discord.File(fp = image_binary, filename = f"Exercise {exercise} Chapter {chapter}.png"))
+                    logging.info(f"Sent answer for chapter {chapter}, exercise {exercise} to user '{ctx.author.name}'")
             except generator.InvalidChapter:
+                logging.info(f"User '{ctx.author.name}' tried to access chapter {chapter}, which does not exists")
                 await ctx.send(f'Error: Chapter {chapter} does not exist')
             except generator.InvalidExercise:
                 await ctx.send(f'Error: Exercise {exercise} does not exist')
+                logging.info(f"User '{ctx.author.name}' tried to access exercise {exercise}, which does not exists")
             except Exception as e:
-                print(e)
                 await ctx.send(f'Internal Error: Contact Dada_Roulin#5870 for help')

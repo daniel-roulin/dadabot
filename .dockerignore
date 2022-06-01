@@ -9,3 +9,4 @@ INVITEURL
 README.md
 .dockerignore
 Dockerfile
+logs.log
