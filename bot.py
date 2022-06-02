@@ -5,7 +5,7 @@ import logging
 from dadadance.dance import Music
 from dadanswers.answer import PhysicAnswers
 
-bot = commands.Bot(("dada ", "ddb ", "dd ", "d ", "da"), description='The one and only dadabot')
+bot = commands.Bot(("dada ", "ddb ", "dd ", "d "), description='The one and only dadabot')
 bot.add_cog(Music(bot))
 bot.add_cog(PhysicAnswers(bot))
 
