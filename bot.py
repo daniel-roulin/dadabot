@@ -1,6 +1,7 @@
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
 import logging
+import discord
 
 from dadadance.dance import Music
 from dadanswers.answer import PhysicAnswers
@@ -10,9 +11,26 @@ bot.add_cog(Music(bot))
 bot.add_cog(PhysicAnswers(bot))
 
 @bot.command()
-async def echo(ctx, *, arg):
-    """Repeats your message"""
-    await ctx.send(arg)
+async def echo(ctx, *, message):
+    """Repeats your message
+    
+    Args:
+        message (string): Message to repeat
+    """
+    await ctx.send(message)
+
+@bot.command()
+async def invite(ctx, permission:int = 8):
+    """Invites this bot to another server
+
+    Args:
+        permission (integer): Custom permission integer, see https://discordapi.com/permissions.html
+    """
+
+    url = f"https://discord.com/oauth2/authorize?client_id=764955899348385815&scope=bot&permissions={permission}"
+    embed = discord.Embed(title="Thank you for choosing dadabot", color=0xFF5733, description=f"To add dadabot to a server:\n[[Click here!]]({url})")
+    embed.set_footer(text="Made with ❤️ by Daniel Roulin")
+    await ctx.send(embed=embed)
 
 @bot.event
 async def on_ready():
