@@ -32,12 +32,26 @@ class PhysicAnswers(commands.Cog):
                     await ctx.send(
                         f"Answers for exercise {exercise} chapter {chapter}",
                         file = discord.File(fp = image_binary, filename = f"Exercise {exercise} Chapter {chapter}.png"))
-                    logging.info(f"Sent answer for chapter {chapter}, exercise {exercise} to user '{ctx.author.name}'")
+
+                logging.info(f"Sent answer for chapter {chapter}, exercise {exercise} to user '{ctx.author.name}'")
+
+                embed_ad = discord.Embed(
+                    title="Did you know?", 
+                    color=0xFF7700, 
+                    description=f"Dadabot now has a website!\nCheck it out on [dadarou.com](https://dadarou.com)",
+                    url="https://dadarou.com",
+                )
+                embed_ad.set_thumbnail(url="http://dadarou.com/favicon.png")
+                embed_ad.set_footer(text="Made with 🧡 by Daniel Roulin")
+                await ctx.send(embed=embed_ad)                    
+        
             except generator.InvalidChapter:
                 logging.info(f"User '{ctx.author.name}' tried to access chapter {chapter}, which does not exists")
                 await ctx.send(f'Error: Chapter {chapter} does not exist')
+            
             except generator.InvalidExercise:
                 await ctx.send(f'Error: Exercise {exercise} does not exist')
                 logging.info(f"User '{ctx.author.name}' tried to access exercise {exercise}, which does not exists")
+            
             except Exception as e:
                 await ctx.send(f'Internal Error: Contact Dada_Roulin#5870 for help')

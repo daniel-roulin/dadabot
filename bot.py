@@ -28,8 +28,8 @@ async def invite(ctx, permission:int = 8):
     """
 
     url = f"https://discord.com/oauth2/authorize?client_id=764955899348385815&scope=bot&permissions={permission}"
-    embed = discord.Embed(title="Thank you for choosing dadabot", color=0xFF5733, description=f"To add dadabot to a server:\n[[Click here!]]({url})")
-    embed.set_footer(text="Made with ❤️ by Daniel Roulin")
+    embed = discord.Embed(title="Thank you for choosing dadabot", color=0xFF7700, description=f"To add dadabot to a server:\n[[Click here!]]({url})")
+    embed.set_footer(text="Made with 🧡 by Daniel Roulin")
     await ctx.send(embed=embed)
 
 @bot.event
@@ -41,7 +41,7 @@ async def on_command_error(ctx, error):
     if isinstance(error, CommandNotFound):
         logging.info(f"User '{ctx.author.name}' used an invalid command")
         await ctx.send('Error: {}'.format(str(error)))
-        await ctx.send("To get a list of avaible commands, type `dada help`")
+        await ctx.send("To get a list of available commands, type `dada help`")
 
 @bot.event
 async def on_command(ctx):
