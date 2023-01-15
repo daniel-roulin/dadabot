@@ -5,6 +5,8 @@ dadanswers/temp/cropped.pdf
 dadanswers/temp/temp.pdf
 .git
 .gitignore
+.vscode
+delploy.sh
 INVITEURL
 README.md
 .dockerignore
