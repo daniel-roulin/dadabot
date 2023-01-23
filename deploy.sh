@@ -1,5 +1,8 @@
 printf "Building image...\n"
-docker build . -t dadabot:latest
+docker build . -t dadarou/dadabot:latest
+
+printf "\Pushing image...\n"
+docker push dadarou/dadabot:latest
 
 printf "\nSwitching context...\n"
 docker context use dadaserver
@@ -12,9 +15,6 @@ docker pull dadarou/dadabot:latest
 
 printf "\nRunning container...\n"
 docker run -d --restart always dadarou/dadabot:latest
-
-printf "\nRunning containers:\n"
-docker ps -a
 
 printf "\nResetting context...\n"
 docker context use default
