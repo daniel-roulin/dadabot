@@ -7,10 +7,15 @@ import pdf2image
 
 class InvalidChapter(Exception):
     pass
+
+
 class InvalidExercise(Exception):
     pass
+
+
 class InternalError(Exception):
     pass
+
 
 def find_ex_rect(page, exercise, exercise_page_num, chapter):
     """Returns the rectangle around a given exercise"""
@@ -26,6 +31,7 @@ def find_ex_rect(page, exercise, exercise_page_num, chapter):
         logging.error(f"Error: No match for exercise {exercise} on page {exercise_page_num} in chap {chapter}")
         raise
     return rects[0]
+
 
 def create_image(chapter_int, exercise_int):
     """Takes a chapter and exercise number and return a PIL image of the exercise"""
@@ -46,7 +52,7 @@ def create_image(chapter_int, exercise_int):
 
     if next_exercise in index[chapter]:
         next_exercise_page_num = index[chapter][next_exercise]
-        page_range = 1 + (next_exercise_page_num - exercise_page_num)
+        page_range = 1 + (next_exercise_page_num-exercise_page_num)
     else:
         page_range = 1
 
@@ -56,9 +62,9 @@ def create_image(chapter_int, exercise_int):
     x, y, width, height = pdf.load_page(exercise_page_num).rect
 
     crop = fitz.Rect(0, 35, width, height - 115)
-    page = output.new_page(-1, crop.width, crop.height * page_range)
+    page = output.new_page(-1, crop.width, crop.height*page_range)
     for i in range(page_range):
-        page.show_pdf_page(crop + (0, crop.height * i, 0, crop.height * i), pdf, exercise_page_num + i, clip = crop)
+        page.show_pdf_page(crop + (0, crop.height*i, 0, crop.height*i), pdf, exercise_page_num + i, clip=crop)
     pdf.close()
 
     page = output.load_page(0)
@@ -73,7 +79,7 @@ def create_image(chapter_int, exercise_int):
     except Exception as e:
         raise InternalError
 
-    highlight_rect = page.search_for(f"{exercise}.", clip = ex_rect)[0]
+    highlight_rect = page.search_for(f"{exercise}.", clip=ex_rect)[0]
     highlight = page.add_highlight_annot(highlight_rect)
     highlight.set_colors(stroke=(1.0, 0.5, 0.0))
     highlight.update()
