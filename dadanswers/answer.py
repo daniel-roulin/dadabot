@@ -30,25 +30,26 @@ class PhysicAnswers(commands.Cog):
                     image.save(image_binary, 'PNG')
                     image_binary.seek(0)
 
-                    embed_ad = discord.Embed(
-                        title="Did you know?", 
-                        color=0xFF7700, 
-                        description=f"Dadabot now has a website!\nCheck it out on [dadarou.com](https://dadarou.com)",
-                        url="https://dadarou.com",
-                    )
-                    embed_ad.set_thumbnail(url="http://dadarou.com/favicon.png")
-                    embed_ad.set_footer(text="Made with 🧡 by Daniel Roulin")
+                    # embed_ad = discord.Embed(
+                    #     title="Did you know?", 
+                    #     color=0xFF7700, 
+                    #     description=f"Dadabot now has a website!\nCheck it out on [dadarou.com](https://dadarou.com)",
+                    #     url="https://dadarou.com",
+                    # )
+                    # embed_ad.set_thumbnail(url="http://dadarou.com/favicon.png")
+                    # embed_ad.set_footer(text="Made with 🧡 by Daniel Roulin")
 
                     await ctx.send(
                         f"Answers for exercise {exercise} chapter {chapter}",
                         file = discord.File(fp = image_binary, 
                         filename = f"Exercise {exercise} Chapter {chapter}.png"),
-                        embed = embed_ad)
+                        # embed = embed_ad
+                        )
 
                 logging.info(f"Sent answer for chapter {chapter}, exercise {exercise} to user '{ctx.author.name}'")
             except generator.InvalidChapter:
-                logging.info(f"User '{ctx.author.name}' tried to access chapter {chapter}, which does not exists")
                 await ctx.send(f'Error: Chapter {chapter} does not exist')
+                logging.info(f"User '{ctx.author.name}' tried to access chapter {chapter}, which does not exists")
             
             except generator.InvalidExercise:
                 await ctx.send(f'Error: Exercise {exercise} does not exist')
@@ -56,3 +57,4 @@ class PhysicAnswers(commands.Cog):
             
             except Exception as e:
                 await ctx.send(f'Internal Error: Contact Dada_Roulin#5870 for help')
+                logging.error(f"An error occurred while processing chapter {chapter}, exercise {exercise}: {e}")

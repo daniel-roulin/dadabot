@@ -3,6 +3,7 @@ import logging
 import fitz
 import pdfCropMargins
 import pdf2image
+import os
 
 
 class InvalidChapter(Exception):
@@ -87,6 +88,9 @@ def create_image(chapter_int, exercise_int):
     top = ex_rect.y0 - 8
     width = page.cropbox.width
     page.set_cropbox(fitz.Rect(0, top, width, bottom))
+
+    if not os.path.exists("dadanswers/temp"):
+        os.makedirs("dadanswers/temp")
 
     output.save("dadanswers/temp/temp.pdf", deflate=True, garbage=3)
 
